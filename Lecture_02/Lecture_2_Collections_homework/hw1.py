@@ -53,7 +53,5 @@ def check_data(file_path: str, validators: Iterable[Callable]) -> str:
             for validator in validators:
                 if not validator(line):
                     output_file.write(f"{line} {validator.__name__}\n")
-                    output_file.flush()
                     break
     return os.path.abspath('output_file.txt')
-
