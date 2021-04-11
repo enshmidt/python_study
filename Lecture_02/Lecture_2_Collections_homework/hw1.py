@@ -55,4 +55,3 @@ def check_data(file_path: str, validators: Iterable[Callable]) -> str:
                     output_file.write(f"{line} {validator.__name__}\n")
                     break
     return os.path.abspath('output_file.txt')
-
