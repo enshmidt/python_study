@@ -43,17 +43,16 @@ def validate_line(line: str) -> bool:
 def validate_date(date: str) -> bool:
     """Check if the date is in format DDDD-DD-DD"""
     checked_str = date.split(" ")[-1:]
-    return bool(re.fullmatch("\d{4}-\d{2}-\d{2}", *checked_str))
+    return re.fullmatch(r"\d{4}-\d{2}-\d{2}", *checked_str)
 
 
 def check_data(file_path: str, validators: Iterable[Callable]) -> str:
-    with open(file_path, 'r') as data_file, open('output_file.txt', 'w+') as output_file:
+    with open(file_path, 'r') as data_file, open('output_file.txt', 'w') as output_file:
         for line in data_file:
             line = line.strip()
             for validator in validators:
                 if not validator(line):
                     output_file.write(f"{line} {validator.__name__}\n")
-                    output_file.flush()
                     break
     return os.path.abspath('output_file.txt')
 

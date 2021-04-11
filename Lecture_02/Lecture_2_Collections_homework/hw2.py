@@ -18,9 +18,10 @@ Output: 2, 1
 
 """
 from typing import List, Tuple
+from collections import Counter
 
 
-def major_and_minor_elem(inp: List) -> Tuple[int, int]:
+def major_and_minor_elem_old(inp: List) -> Tuple[int, int]:
     return *major(inp), *minor(inp)
 
 
@@ -46,7 +47,16 @@ def major(inp: List):
     return set(values)
 
 
+def major_and_minor_elem(inp: List) -> Tuple[int, int]:
+    c = Counter(inp)
+    dict_c = dict(c.most_common())
+    max_repeat = max(dict_c.values())
+    min_repeat = min(dict_c.values())
+    list_of_min_items = [key for key, val in dict_c.items() if val == min_repeat]
+    list_of_max_items = [key for key, val in dict_c.items() if val == max_repeat & val > len(inp)//2]
+    return *list_of_max_items, *list_of_min_items
+
+
 # inputV = [3, 2, 3]
 # inputV2 = [2,2,1,1,1,2,2]
 # inputV3 = [2,2,1,1,1,2,2,5,8,5,1,7,2,4]
-# major_and_minor_elem(inputV2)
