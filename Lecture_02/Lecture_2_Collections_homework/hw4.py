@@ -14,4 +14,16 @@ from collections.abc import Callable
 
 
 def cache(func: Callable) -> Callable:
-    ...
+    is_called = dict()
+
+    def wrapper(*arg):
+        nonlocal is_called
+        if id(func) not in is_called:
+            res = func(*arg)
+            is_called[id(func)] = res
+            print("Result was counted")
+            return res
+        else:
+            print("Get from cache")
+            return is_called.get(id(func))
+    return wrapper
