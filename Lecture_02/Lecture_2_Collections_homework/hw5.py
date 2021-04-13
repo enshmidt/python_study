@@ -22,5 +22,25 @@ import string
 assert = custom_range(string.ascii_lowercase, 'g') == ['a', 'b', 'c', 'd', 'e', 'f']
 assert = custom_range(string.ascii_lowercase, 'g', 'p') == ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o']
 assert = custom_range(string.ascii_lowercase, 'p', 'g', -2) == ['p', 'n', 'l', 'j', 'h']
-
 """
+
+
+def custom_range(collection, *args):
+    list_coll = list(collection)
+    list_args = list(args)
+    b = list_coll
+    if len(list_args) == 0:
+        b = list_coll[::]
+    elif len(list_args) == 1:
+        stop = collection.index(list_args[0])
+        b = list_coll[:stop:]
+    elif len(list_args) == 2:
+        start = collection.index(list_args[0])
+        stop = collection.index(list_args[1])
+        b = list_coll[start:stop:]
+    elif len(list_args) == 3:
+        start = collection.index(list_args[0])
+        stop = collection.index(list_args[1])
+        step = list_args[2]
+        b = list_coll[start:stop:step]
+    return b
