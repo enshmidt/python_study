@@ -12,7 +12,12 @@ assert combinations([1, 2], [3, 4]) == [
 ]
 """
 from typing import Any, List
+from itertools import product
 
 
 def combinations(*args: List[Any]) -> List[List]:
-    ...
+    comb = list(product(*args))
+    lst = [list(i) for i in comb]
+    return lst
+
+# combinations([1,2], [3,4])
