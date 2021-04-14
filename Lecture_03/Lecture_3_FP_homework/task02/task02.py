@@ -29,7 +29,6 @@ def get_joke(**kwargs):
 
 @build_request(method="GET", base_url="http://www.boredapi.com/api")
 def get_bored(**kwargs):
-    # return requests.get(kwargs.get("url"))
     return kwargs.get("resp")
 
 
