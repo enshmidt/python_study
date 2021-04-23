@@ -5,14 +5,18 @@
 # Set pytest as default runner https://stackoverflow.com/questions/6397063/how-do-i-configure-pycharm-to-run-py-test-tests
 # hit Ctrl+Shift+F10 or RMB on the file to run tests
 
+
 def io_func(logfile_path, result_file_path):
-    # filter logfile_path, writes into the result_file_path
-    pass
+    lines = (line for line in open(logfile_path))
+    [open(result_file_path, "a+").write(pure_func(line) + "\n") for line in lines if int(line.split(" ")[8]) == 304]
+    return result_file_path
 
 
 def pure_func(file_line):
-    # some logic that filter lines and doesn't depends on global state
-    pass
+    return file_line.split(" ")[0]
+
+
+res_file_path = io_func("apache_log", "out_file")
 
 
 def test_myfunc_positive():
@@ -22,5 +26,6 @@ def test_myfunc_positive():
 
 
 def test_myfunc_negative():
-    # put some logic here that checks that line without 304 code is not goes into filter return
-    pass
+    line = '218.30.103.62 - - [17/May/2015:11:05:37 +0000] "GET /blog/geekery/c-vs-python-bdb.html HTTP/1.1" \
+           200 11388 "-" "Sogou web spider/4.0(+http://www.sogou.com/docs/help/webmasters.htm#07)"'
+    assert line.split(" ")[0] not in open("out_file")
