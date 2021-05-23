@@ -16,7 +16,10 @@ Write a function that detects if a number is Armstrong number in functionaly sty
 
 ### Example function signature and call
 """
+import functools
 
 
 def is_armstrong(number: int) -> bool:
-    return None
+    num_list = [int(i)**len(str(number)) for i in list(str(number))]
+    s = sum(num_list)
+    return number == s
