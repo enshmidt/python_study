@@ -20,6 +20,6 @@ import functools
 
 
 def is_armstrong(number: int) -> bool:
-    num_list = [int(i)**len(list(str(number))) for i in list(str(number))]
-    s = functools.reduce(lambda x, y: x + y, num_list)
+    num_list = [int(i)**len(str(number)) for i in list(str(number))]
+    s = sum(num_list)
     return number == s
